@@ -10,7 +10,7 @@ function App() {
     <div className="App">
       <section className="App-content">
         <Link to='/'>
-          <p className="App-logo">Home</p>
+          <span className="App-logo">Home</span>
         </Link>
         <Route
           component={Home}
