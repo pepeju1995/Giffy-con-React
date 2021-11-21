@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import './App.css';
-import Home from './pages/Home';
 import Detail from './pages/Detail';
 import SearchResults from './pages/SearchResults';
 import Context from './context/StaticContext';
 import { GifsContextProvider } from './context/GifsContext';
 
 import { Link, Route } from "wouter"
+
+const HomePage = React.lazy(() => import('pages/Home'))
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       }
     }>
       <div className="App">
+      <Suspense fallback={null}>
         <section className="App-content">
           <Link to='/'>
             <span className="App-logo">Giffy</span>
@@ -24,7 +26,7 @@ function App() {
 
           <GifsContextProvider>
             <Route
-              component={Home}
+              component={HomePage}
               path='/'
             />
             <Route 
@@ -38,6 +40,7 @@ function App() {
           </GifsContextProvider>
 
         </section>
+      </Suspense>
       </div>
     </Context.Provider>
   );

@@ -20,18 +20,18 @@ export default function Home() {
     }
     
     return (
-        <>
+        <div>
             <form onSubmit={handleSubmit}>
                 <input placeholder="Search a gif here..." onChange={handleChange} type="text" value={keyword} />
                 <button>Buscar</button>
             </form>
 
-            <h3 className="App-title">Ultima búsqueda</h3>
+            <h3 className="App-title">Última búsqueda</h3>
             <ListOfGifs gifs={gifs} />
 
             <div>
                 <TrendingSearches />
             </div>
-        </>
+        </div>
     )
 }
