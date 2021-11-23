@@ -3,29 +3,20 @@ import { useLocation } from "wouter";
 import useGifs from 'hooks/useGifs'
 import ListOfGifs from 'components/ListOfGifs/index'
 import TrendingSearches from "components/TrendingSearches";
+import SearchForm from "components/SearchForm";
 
 export default function Home() {
-    const [keyword, setKeyword] = useState('');
     const [path, pushLocation] = useLocation()
     const { loading, gifs} = useGifs()
 
-    const handleSubmit = evt => {
-        evt.preventDefault()
-
+    const handleSubmit = ({ keyword }) => {
         pushLocation(`/search/${keyword}`)
-    }
-
-    const handleChange = evt => {
-        setKeyword(evt.target.value)
     }
     
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <input placeholder="Search a gif here..." onChange={handleChange} type="text" value={keyword} />
-                <button>Buscar</button>
-            </form>
-
+            <SearchForm onSubmit={handleSubmit} />
+            
             <h3 className="App-title">Última búsqueda</h3>
             <ListOfGifs gifs={gifs} />
 
