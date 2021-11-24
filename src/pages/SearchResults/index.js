@@ -4,6 +4,7 @@ import ListOfGifs from "components/ListOfGifs";
 import useGifs from "hooks/useGifs";
 import useNearScreen from "hooks/useNearScreen";
 import debounce from "just-debounce-it";
+import { Helmet } from "react-helmet";
 
 export default function SearchResults({ params }) {
     const { keyword } = params;
@@ -11,9 +12,10 @@ export default function SearchResults({ params }) {
     const externalRef = useRef();
     const { isNearScreen } = useNearScreen({ 
         externalRef: loading ? null : externalRef, 
-        once: false,
-        distance: '500px'
+        once: false
     })
+
+    const title = gifs ? `${gifs.length} resuldados de ${keyword}` : ''
 
     // eslint-disable-next-line
     const debounceHandleNextPage = useCallback(debounce(
@@ -28,6 +30,11 @@ export default function SearchResults({ params }) {
         {loading
             ? <Spinner />
             : <>
+                <Helmet>
+                    <title>{title}</title>
+                    <meta name="description" content={title} />
+                    <meta name="rating" content="General" />
+                </Helmet>
                 <h3 className="App-title">{decodeURI(keyword)}</h3>
                 <ListOfGifs gifs={gifs} />
                 <div id="visor" ref={externalRef}>
